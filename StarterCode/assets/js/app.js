@@ -80,6 +80,27 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
       .attr("class", "stateCircle")
       .attr("stroke", "black");
 
+// Initialize tool tip
+    var toolTip = d3.tip()
+      .attr("class", "d3-tip")
+      .offset([0, 0])
+      .html(function(d) {
+        return (`<strong>${d.state}</br></br>Lacks Healthcare (%):</br>${d.healthcare}</br></br>Poverty (%):</br> ${d.poverty}<strong>`);
+      });
+
+
+  circlesGroup.call(toolTip);
+
+  circlesGroup.on("mouseover", function(data) {
+    toolTip.show(data);
+  })
+    // onmouseout event
+    .on("mouseout", function(data, index) {
+      toolTip.hide(data);
+    });
+
+
+
 
 //From HW 16.3.8
 // // function used for updating circles group with new tooltip
